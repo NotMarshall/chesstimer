@@ -6,30 +6,45 @@
     <title>Chess Timer</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Calibri, sans-serif;
             margin: 0;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #f0f0f0;
+            background-color: #000000;
         }
         
+        .start-container {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .start-button {
+            padding: 20px 50px; /* Adjust padding for button size */
+            font-size: 200px; /* Adjust font size for button */
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
         .timer-container {
             display: none;
             flex-direction: column;
             height: 100vh;
             width: 100%;
         }
-        
+
         .timer {
             display: flex;
             justify-content: center;
             align-items: center;
             flex: 1;
             width: 100%;
-            font-size: 48px;
+            font-size: 90px;
             cursor: pointer;
         }
         
@@ -57,10 +72,19 @@
         }
         
         .time-selector button {
-            padding: 5px 10px;
-            font-size: 18px;
+            padding: 5px 20px;
+            font-size: 100px;
             cursor: pointer;
             margin: 0 5px;
+            border-radius: 5px;
+	    width : 200px;
+        }
+
+        #selectedTime {
+            font-size: 90px; /* Adjust the font size as needed */
+		margin-right: 20px; /* Adjust the right margin */
+            margin-left: 20px; /* Adjust the left margin */
+	    align : center;
         }
     </style>
 </head>
@@ -71,7 +95,7 @@
             <div id="selectedTime">10</div>
             <button id="plusButton">+</button>
         </div>
-        <button class="start-button" id="startButton">Start Game</button>
+        <button class="start-button" id="startButton">Start</button>
     </div>
     <div class="timer-container" id="timerContainer">
         <div class="timer" id="player2">
