@@ -77,15 +77,18 @@
             cursor: pointer;
             margin: 0 5px;
             border-radius: 5px;
-	    width : 70px;
-	   
+            width: 70px;
         }
 
         #selectedTime {
             font-size: 50px; /* Adjust the font size as needed */
-		margin-right: 20px; /* Adjust the right margin */
+            margin-right: 20px; /* Adjust the right margin */
             margin-left: 20px; /* Adjust the left margin */
-	    align : center;
+        }
+
+        /* Fade effect for inactive player's time */
+        .inactive-time {
+            opacity: 0.5; /* Example: reduce opacity for the inactive player */
         }
     </style>
 </head>
@@ -93,7 +96,7 @@
     <div class="start-container">
         <div class="time-selector">
             <button id="minusButton">-</button>
-            <div id="selectedTime">10</div>
+            <div id="selectedTime">5</div>
             <button id="plusButton">+</button>
         </div>
         <button class="start-button" id="startButton">Start</button>
@@ -127,15 +130,17 @@
             intervalId = setInterval(() => {
                 if (activePlayer === 'player1') {
                     timer1--;
-                    if (timer1 < 0) {
+                    if (timer1 <= 0) {
                         clearInterval(intervalId);
+                        announceWinner('BLACK');
                         return;
                     }
                     updateTimeDisplay(time1Display, timer1);
                 } else {
                     timer2--;
-                    if (timer2 < 0) {
+                    if (timer2 <= 0) {
                         clearInterval(intervalId);
+                        announceWinner('WHITE');
                         return;
                     }
                     updateTimeDisplay(time2Display, timer2);
@@ -155,19 +160,37 @@
             } else {
                 activePlayer = 'player1';
             }
+
+            // Toggle fade class for timers
+            player1Div.classList.toggle('inactive-time', activePlayer !== 'player1');
+            player2Div.classList.toggle('inactive-time', activePlayer !== 'player2');
+        }
+
+        function announceWinner(player) {
+            alert(player + ' wins!');
         }
 
         minusButton.addEventListener('click', () => {
             let selectedTime = parseInt(selectedTimeDisplay.textContent);
-            if (selectedTime > 5) {
-                selectedTime -= 5;
-                selectedTimeDisplay.textContent = selectedTime;
+            if (selectedTime === 5) {
+                selectedTime = 2;
+            } else if (selectedTime === 2) {
+                selectedTime = 1;
+            } else if (selectedTime > 1) {
+                selectedTime -= 1;
             }
+            selectedTimeDisplay.textContent = selectedTime;
         });
 
         plusButton.addEventListener('click', () => {
             let selectedTime = parseInt(selectedTimeDisplay.textContent);
-            selectedTime += 5;
+            if (selectedTime === 1) {
+                selectedTime = 2;
+            } else if (selectedTime === 2) {
+                selectedTime = 5;
+            } else {
+                selectedTime += 5;
+            }
             selectedTimeDisplay.textContent = selectedTime;
         });
 
